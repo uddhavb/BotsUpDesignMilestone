@@ -7,13 +7,15 @@
 
 
 ### Bot Description:  
-  The proposed solution to the above problem is an interactive bot that takes in source code in various formats from the user and returns the result of the static analysis performed on it. The bot’s backend utilizes APIs exposed by various code analysis tools. 
+   The proposed solution to the above problem is an interactive bot that takes in source code in various source formats from the user and returns the result of the static analysis performed on it. The bot’s backend utilizes APIs exposed by various code analysis web services. 
 
-  The bot is housed in the slack platform and that has a simple chat interface. Here, the bot takes in a source file or files (or an archive) of "any environment" or a link to the repository as an input, analyses the file/project and returns the results of the analysis in the file/project in the same chat window. 
+   The bot has a simple chat interface. It takes in a source file or an archive or a link to the source file from a repository, as an input, analyses the file/project and returns the results of the analysis in the file/project in the same chat window. 
+The result of the analysis is sent as a link to a page that displays the analysis result for each source file. 
 
-  The bot would require a one-time setup to connect external tools to it.
+The operation of the bot is based on the following assumptions:
+   * The user has the necessary licenses to the external web services.
+   * The user has performed the necessary configuration steps to connect to these services.
 
-  The bot analyses these errors and presents it to the user one by one in the chat window. The bot then gives the user suggestions as per the best coding practice guidelines.
 
 
 ### Use Cases:  
