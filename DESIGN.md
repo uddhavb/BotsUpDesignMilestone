@@ -59,6 +59,7 @@ Wireframe:
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/frame-wire.png)
 
 Storyboard: 
+![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/story.png)
 
 #### Architecture Design:   
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/asfdds.png)
