@@ -1,12 +1,12 @@
 # MILESTONE: DESIGN
 
-#### Problem Statement:  
+### Problem Statement:  
    Code written by developers could have bugs like null pointer exceptions, vulnerabilities, duplicated code, complex code and deviations from coding standards etc. These issues could cause major problems when the application is in production. Early and efficient detection of these problems is a growing need of any software development project.
 
   In real life, code bases are very large and consists of source code in various languages. Analysing these code bases one by one is tedious. Also each programming language could require different static analysis tools which could be cumbersome to setup and configure on every developer's environment. Managers or lead developers might also want to analyze the developers code as part of the code review process. A tool that simplifies these tasks would improve the productivity of the team.
 
 
-#### Bot Description:  
+### Bot Description:  
   The proposed solution to the above problem is an interactive bot that takes in source code in various formats from the user and returns the result of the static analysis performed on it. The bot’s backend utilizes APIs exposed by various code analysis tools. 
 
   The bot is housed in the slack platform and that has a simple chat interface. Here, the bot takes in a source file or files (or an archive) of "any environment" or a link to the repository as an input, analyses the file/project and returns the results of the analysis in the file/project in the same chat window. 
@@ -16,7 +16,7 @@
   The bot analyses these errors and presents it to the user one by one in the chat window. The bot then gives the user suggestions as per the best coding practice guidelines.
 
 
-#### Use Case:  
+### Use Cases:  
 ```
 Use Case 1 : A developer wants to verify his code and find potential deviation from coding standards, memory issues, security vulnerabilities
 1 Preconditions
@@ -51,17 +51,20 @@ Use Case 3 : A recruitment firm needs to evaluate code submitted by several pote
 
 ```
 
-#### Design Sketches:  
+
+### Design Sketches:  
 Wireframe:  
 
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/frame-git.png)
 
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/frame-wire.png)
 
-Storyboard: 
+Storyboard:   
+
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/story.png)
 
-#### Architecture Design:   
+
+### Architecture Design:   
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/asfdds.png)
 
 As we can see from our architectural specification diagram, the user will interact with our bot in three ways. The user can either upload a file which contains the source code, a zip file which contains a collection of source code files and a link to a GitHub repository which contains the source code files. Our bot acts as an interface between the user and the middleware. The platform we have chosen for our bot is Slack.
@@ -73,5 +76,11 @@ The APIs form the backbone of our bot. Depending on the language of the source f
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/Middleware.png)
 
 The middleware forms the central processing unit of our bot. It is this unit where the logic behind our bot lies. In case of GitHub repositories provided by the user, the middleware can access the repository by sending a request to GitHub. This request is processed by GitHub to provide the files. The middleware interprets the files that have been provided by the user and calls the respective API. The middleware also performs exception handling tasks including providing an ‘Unsupported Language’ error. It also renders the output as provided by the API, back to the user.
+
+Constraints and Guidelines:
+   * The analysis results are limited to certain language/extension of the input files.
+   * The precision, quality and performance of the results may vary as per the different APIs/tools that are used to analyse different languages.
+   * The input files are not modified by the bot as per the results so that the user has the freedom to choose the changes that he/she feels are necessary.
+   * The best time to use static analysis tool is early in the software development cycle.
 
 
