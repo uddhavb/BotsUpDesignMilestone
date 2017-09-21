@@ -9,12 +9,3 @@ Team:
 5. Siddhant Shah (sshah14)  
  
 Link to DESIGN.md : [DESIGN.md](https://github.ncsu.edu/rshah8/Design-Milestone/blob/master/DESIGN.md)  
-
-Project Items:
-
-* Problem Statement
-* Bot Description
-* 3 Use Cases
-* Design Sketches
-* Architecture Design
-* Additional Patterns
