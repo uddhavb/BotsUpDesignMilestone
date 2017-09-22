@@ -74,7 +74,7 @@ Use Case: Perform code analysis on multiple files
 
 The overall architecture of the application comprises of characteristics from message-driven, client-server and layered architecture patterns. The platform, middleware and the external services are described below.
 
-![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/asfdds.png)  
+![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/architecture.png)  
 
 ##### Platform 
    As per the architectural specification diagram, the bot is accessible from the Slack platform which serves as the client. All the user inputs in Slack are sent to the middleware via the  RealTime Messaging (RTM) API.
