@@ -1,53 +1,57 @@
 # MILESTONE: DESIGN
 
 ### Problem Statement:  
-   Code written by developers could have bugs like null pointer exceptions, vulnerabilities, duplicated code, complex code and deviations from coding standards etc. These issues could cause major problems when the application is in production. Early and efficient detection of these problems is a growing need of any software development project.
+   Code written by developers could be riddled with bugs like null pointer exceptions, vulnerabilities, duplicated code, spaghetti code and deviations from coding standards. These issues cause headaches when the application is in production and require additional effort to rectify. Early and efficient detection of these problems is a growing need of any software development project.
 
-  In real life, code bases are very large and consists of source code in various languages. Analysing these code bases one by one is tedious. Also each programming language could require different static analysis tools which could be cumbersome to setup and configure on every developer's environment. Managers or lead developers might also want to analyze the developers code as part of the code review process. A tool that simplifies these tasks would improve the productivity of the team.
+   In real world software projects, code-bases are very large and consists of source code in various languages. Analysing large amount of code for issues manually is tedious and inefficient. Also each programming language could require different static analysis tools which could be cumbersome to setup and configure on every developer's environment. Managers or lead developers may also want to assess the developer’s code as part of the code review process. A tool that simplifies these tasks would improve the productivity of the team and the time saved here could potentially be used to focus on requirement specifications, application design and/or customer interaction.
 
 
 ### Bot Description:  
-   The proposed solution to the above problem is an interactive bot that takes in source code in various source formats from the user and returns the result of the static analysis performed on it. The bot’s backend utilizes APIs exposed by various code analysis web services. 
+   The proposed solution to the above problem is an interactive bot that takes in source code in various formats from the user and returns the result of the static code analysis performed on it. 
+It is tedious for a user to check for code errors(/redundancies) that a compiler cannot detect. Static analysis tools used by the bot helps the user in detecting: null-pointer dereferences, memory leaks, logical errors, duplicated code, security vulnerabilities like SQL injections and hard-coded passwords and write error-proof clean code.
 
-   The bot has a simple chat interface. It takes in a source file or an archive or a link to the source file from a repository, as an input, analyses the file/project and returns the results of the analysis in the file/project in the same chat window. 
-The result of the analysis is sent as a link to a page that displays the analysis result for each source file. 
+   The bot aims at providing a smooth user-experience by abstracting the computation of the analysis of code to an external server below a familiar user interface and conversational model. It does not require any extensive installation by the user and has a simple chat interface which takes in a source file(s) as an input for analysis. It can also interface with a code repository such as Git, in order to analyze remote source files. The bot then gives the user suggestions as per the best coding practice guidelines. The bot’s backend utilizes APIs exposed by various code analysis web services which can be either local or remote services. 
 
-The operation of the bot is based on the following assumptions:
-   * The user has the necessary licenses to the external web services.
-   * The user has performed the necessary configuration steps to connect to these services.
-
+   The design of the bot is based on a few assumptions. The user needs to have the necessary licenses to the external web services. Also, the user has performed the necessary configuration steps to connect to these services.
 
 
 ### Use Cases:  
 ```
-Use Case 1 : A developer wants to verify his code and find potential deviation from coding standards, memory issues, security vulnerabilities
+Use Case: Perform code analysis on a source file
 1 Preconditions
-   The developer must have access to slack
+   The user must have access to slack
 2 Main Flow
-   [S1] User will log on to slack and access the bot chat window
-   [S2] User will provide code to the bot
-   [S3] The bot will return a result of the static analysis performed
-3 Alternate Flows
-   [E1] The language in the input file is not supported by the Bot or its APIs
+   User will log on to Slack and access the bot chat window and request code analysis by submitting a source file to the bot [S1]. The bot will return the result of the analysis performed on the source file [S2]
+3 Subflows
+   [S1] User uploads a source file in the slack chat window
+   [S2] The bot returns the result of the analysis back to the user on the chat window
+4 Alternative Flows
+   [E1] The language of the code in the input source file is not supported
+
 ```
 ```
-Use Case 2 : A manager or a technical lead developer wants to review code of other (possibly cross functional) developers in the team.
+Use Case: Perform code analysis on source code from a repository 
 1 Preconditions
-   The developer must have access to slack
+   The user must have access to slack
 2 Main Flow
-   [S1] The  developer will submit the link to the code in the git repo
-   [S2] The bot will return the result of the static analysis performed on that code
-3 Alternate Flows
-   [E1] The language in the input file is not supported by the Bot or its APIs
+   The User will log on to Slack and access the bot chat window and request code analysis by submitting a link to the source file in a repository [S1] .The bot will return the result of the analysis performed on the source file [S2]
+3 Subflows
+   [S1] User sends a link to the source file in a repository
+   [S2] The bot returns the result of the analysis back to the user on the chat window
+4 Alternative Flows
+   [E1]The language of the code in the input source file is not supported
+
 ```
 ```
-Use Case 3 : A recruitment firm needs to evaluate code submitted by several potential candidates
+Use Case: Perform code analysis on multiple files 
 1 Preconditions
    The user must have access to the slack platform
 2 Main Flow
-   [S1] The user will submit a zip archive containing several source files, possibly, in several languages
-   [S2] The bot will return the analysis and the suggestions for each source file
-3 Alternate Flows
+   The user will access the bot via slack and request code analysis by submitting a zip archive containing several source files, possibly, in several languages, to the bot[S1]. The bot will return the result of the  analysis performed on each source file [S2]
+3 Subflows
+   [S1] The user sends an archive of source files for analysis
+   [S2] The bot returns the result of the analysis back to the user on the chat window
+4 Alternative Flows
    [E1] The zip archive is corrupt
    [E2] One or more files in the zip archive contain unsupported languages
 
@@ -67,22 +71,31 @@ Storyboard:
 
 
 ### Architecture Design:   
-![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/asfdds.png)
 
-As we can see from our architectural specification diagram, the user will interact with our bot in three ways. The user can either upload a file which contains the source code, a zip file which contains a collection of source code files and a link to a GitHub repository which contains the source code files. Our bot acts as an interface between the user and the middleware. The platform we have chosen for our bot is Slack.
+The overall architecture of the application comprises of characteristics from message-driven, client-server and layered architecture patterns. The platform, middleware and the external services are described below.
 
-![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/Slack%20bot.png)
+![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/asfdds.png)  
 
-The APIs form the backbone of our bot. Depending on the language of the source file(s), the middleware calls the respective APIs. These APIs then use the source files as input to their static analysis software and provides the middleware with the output. Our project provides a single API for each programming language including Hopper, clang-tidy and jedi for Java, C and Python respectively. Thus, the APIs act as an interface between the middleware and underlying software.
+##### Platform 
+   As per the architectural specification diagram, the bot is accessible from the Slack platform which serves as the client. All the user inputs in Slack are sent to the middleware via the  RealTime Messaging (RTM) API.
 
-![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/Middleware.png)
+![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/Slack%20bot.png)  
 
-The middleware forms the central processing unit of our bot. It is this unit where the logic behind our bot lies. In case of GitHub repositories provided by the user, the middleware can access the repository by sending a request to GitHub. This request is processed by GitHub to provide the files. The middleware interprets the files that have been provided by the user and calls the respective API. The middleware also performs exception handling tasks including providing an ‘Unsupported Language’ error. It also renders the output as provided by the API, back to the user.
+##### External Services  
+   The REST API calls to the static analysis tools serve as the computation engine of the application. These APIs then use the source files as input to their static analysis algorithm and provide the middleware with the output as a response. The application uses dedicated APIs like Codeburner, Veracode and jedi for analysing programming languages like Java, C and Python respectively.   
+   Messages from the user trigger the application to perform actions accordingly.
 
-Constraints and Guidelines:
-   * The analysis results are limited to certain language/extension of the input files.
-   * The precision, quality and performance of the results may vary as per the different APIs/tools that are used to analyse different languages.
-   * The input files are not modified by the bot as per the results so that the user has the freedom to choose the changes that he/she feels are necessary.
+![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/Middleware.png)  
+
+##### Middleware  
+   This layer consists of a NodeJS server along with the BotKit module that enables the middleware to interface with Slack via the RTM API. It listens for inputs sent by the user on the front-end. The source code gathered in the middleware is converted into a structure compatible with the external API and sent as a request to the respective API depending on the language of the source file(s).. In case of GitHub repositories provided by the user, the middleware can access the repository by sending a request to GitHub, which in turn returns the source files. The middleware also handles exceptions in case of unsupported languages.
+
+##### Constraints and Guidelines:
+   * The analysis results are limited to certain language/extension of the input files that are supported by the external analysis tool
+The precision, quality and performance of the results may vary as per the different APIs/tools that are used to analyse different languages.
+   * The input files are not modified by the bot as per the results so that the user has the freedom to choose the changes that he/she feels are necessary. 
    * The best time to use static analysis tool is early in the software development cycle.
-
+   * The application can be used by each developer in the team. In case of limited licenses, a manager can use it to analyse each developer’s code.
+   * It is recommended to supply well-formatted syntactically correct code for best results
+   * Developers should not use this tool as a crutch. Learning to apply best practices in software development independently is a must for every developer.
 
