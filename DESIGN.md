@@ -59,13 +59,13 @@ Use Case: Perform code analysis on multiple files
 
 
 ### Design Sketches:  
-Wireframe:  
+##### Wireframe:  
 
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/frame-git.png)
 
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/frame-wire.png)
 
-Storyboard:   
+##### Storyboard:   
 
 ![img](https://github.ncsu.edu/rshah8/Design-Milestone/raw/master/story.png)
 
