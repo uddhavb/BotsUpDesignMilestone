@@ -21,10 +21,10 @@ Use Case: Perform code analysis on a source file
 1 Preconditions
    The user must have access to slack
 2 Main Flow
-   User will log on to Slack and access the bot chat window and request code analysis by submitting a source file to the bot [S1]. The bot will return the result of the analysis performed on the source file [S2]
+   User will log on to Slack and access the bot chat window and request code analysis by submitting a source file to the bot [S1]. The bot will return a user friendly message explaining the result of the analysis performed on the source file along with suggestions [S2]
 3 Subflows
    [S1] User uploads a source file in the slack chat window
-   [S2] The bot returns the result of the analysis back to the user on the chat window
+   [S2] The bot returns user friendly message along with suggestions
 4 Alternative Flows
    [E1] The language of the code in the input source file is not supported
 
@@ -34,10 +34,10 @@ Use Case: Perform code analysis on source code from a repository
 1 Preconditions
    The user must have access to slack
 2 Main Flow
-   The User will log on to Slack and access the bot chat window and request code analysis by submitting a link to the source file in a repository [S1] .The bot will return the result of the analysis performed on the source file [S2]
+   The User will log on to Slack and access the bot chat window and request code analysis by submitting a link to the source file in a repository [S1] The bot will return a user friendly message explaining the result of the analysis performed on the source file along with suggestions  [S2]
 3 Subflows
    [S1] User sends a link to the source file in a repository
-   [S2] The bot returns the result of the analysis back to the user on the chat window
+   [S2] The bot returns user friendly message along with suggestions
 4 Alternative Flows
    [E1]The language of the code in the input source file is not supported
 
